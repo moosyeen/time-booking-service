@@ -1,5 +1,7 @@
 package com.fantasy.tbs;
 
+import com.fantasy.tbs.bootstrap.ApplicationBootstrap;
+import com.fantasy.tbs.bootstrap.SpringUtils;
 import com.fantasy.tbs.config.ApplicationProperties;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -67,7 +69,9 @@ public class TimeBookingServiceApp {
         SpringApplication app = new SpringApplication(TimeBookingServiceApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
-        logApplicationStartup(env);
+
+        ApplicationBootstrap bootstrap = SpringUtils.getApplicationContext().getBean(ApplicationBootstrap.class);
+        bootstrap.initial();
     }
 
     private static void logApplicationStartup(Environment env) {
